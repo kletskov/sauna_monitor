@@ -1,0 +1,42 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Logs
+*.log
+temp-monitor.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config with secrets - DO NOT COMMIT
+config.py
+
+# Tuya device credentials
+tuyadevices.json
+devices.json
+snapshot.json
+
+# Data logs (historical data)
+temperature_history.json
+breaker_history.json
+
+# Flask
+instance/
+.pytest_cache/

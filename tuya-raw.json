@@ -1,0 +1,131 @@
+{
+    "result": [
+        {
+            "active_time": 1757802001,
+            "biz_type": 0,
+            "category": "kg",
+            "create_time": 1757802001,
+            "icon": "smart/icon/ay1557729441197yAROc/e3888ed6e69e155a694c3d907b83edde.png",
+            "id": "eb6528bc3e7fd74deegmtt",
+            "ip": "192.184.160.52",
+            "lat": "37.48",
+            "local_key": "NFNp!=7^0$r-nUPV",
+            "lon": "-122.18",
+            "model": "b100",
+            "name": "WIFIMCBM",
+            "online": true,
+            "owner_id": "264502130",
+            "product_id": "i7kzoxmfmx2udpiy",
+            "product_name": "WIFIMCBM",
+            "status": [
+                {
+                    "code": "switch_1",
+                    "value": false
+                },
+                {
+                    "code": "countdown_1",
+                    "value": 0
+                },
+                {
+                    "code": "relay_status",
+                    "value": "last"
+                },
+                {
+                    "code": "light_mode",
+                    "value": "relay"
+                },
+                {
+                    "code": "switch_backlight",
+                    "value": false
+                },
+                {
+                    "code": "cycle_time",
+                    "value": ""
+                },
+                {
+                    "code": "random_time",
+                    "value": ""
+                },
+                {
+                    "code": "switch_inching",
+                    "value": ""
+                }
+            ],
+            "sub": false,
+            "time_zone": "-07:00",
+            "uid": "az1757800245590grMPg",
+            "update_time": 1770668846,
+            "uuid": "4b498e3730ce9bfd",
+            "mapping": {
+                "1": {
+                    "code": "switch_1",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "7": {
+                    "code": "countdown_1",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "s",
+                        "min": 0,
+                        "max": 86400,
+                        "scale": 0,
+                        "step": 1
+                    }
+                },
+                "14": {
+                    "code": "relay_status",
+                    "type": "Enum",
+                    "values": {
+                        "range": [
+                            "power_off",
+                            "power_on",
+                            "last"
+                        ]
+                    }
+                },
+                "15": {
+                    "code": "light_mode",
+                    "type": "Enum",
+                    "values": {
+                        "range": [
+                            "relay",
+                            "pos",
+                            "none"
+                        ]
+                    }
+                },
+                "16": {
+                    "code": "switch_backlight",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "17": {
+                    "code": "cycle_time",
+                    "type": "String",
+                    "values": "{}"
+                },
+                "18": {
+                    "code": "random_time",
+                    "type": "String",
+                    "values": "{}"
+                },
+                "19": {
+                    "code": "switch_inching",
+                    "type": "String",
+                    "values": "{}"
+                }
+            }
+        }
+    ],
+    "success": true,
+    "t": 1771108291687,
+    "tid": "e93bea3409f411f18246967af2200aa8",
+    "file": {
+        "name": "tuya-raw.json",
+        "description": "Full raw list of Tuya devices.",
+        "account": "cagqavrn7themhehuk49",
+        "date": "2026-02-14T14:31:32.040222",
+        "tinytuya": "1.17.4"
+    }
+}

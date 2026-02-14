@@ -1,0 +1,29 @@
+"""
+YoLink Temperature Monitor Configuration Template
+
+Copy this file to config.py and fill in your credentials.
+"""
+
+# YoLink API Credentials
+# Get these from: https://yolink.net/Account
+YOLINK_UAID = "your_uaid_here"
+YOLINK_SECRET_KEY = "your_secret_key_here"
+
+# Web Server Configuration
+HOST = "0.0.0.0"  # Listen on all interfaces
+PORT = 5002  # Change if port is already in use
+
+# Temperature Refresh Interval (seconds)
+REFRESH_INTERVAL = 30  # Poll temperature every 30 seconds
+
+# Temperature Display
+DISPLAY_FAHRENHEIT = False  # Set to False to display Celsius
+
+# Tuya WiFi Breaker (Sauna Control)
+# Set TUYA_ENABLED = False to disable Tuya integration
+TUYA_ENABLED = False
+TUYA_DEVICE_ID = "your_device_id"
+TUYA_LOCAL_KEY = "your_local_key"
+TUYA_IP_ADDRESS = "192.168.x.x"
+TUYA_VERSION = 3.4
+TUYA_DEVICE_NAME = "Sauna"  # Display name
