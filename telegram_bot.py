@@ -126,7 +126,7 @@ class TelegramNotifier:
             f"📅 <b>HUMP DAY HEAT CHECK!</b> 🐫🔥\n\n"
             f"Sauna's been chillin' for {off_duration}{temp_str}...\n\n"
             f"Time to create the poll and see who's ready for tomorrow's sweat session! 🗳️💦\n\n"
-            f"Who's ready to turn this frozen castle back into a furnace? 🏰➡️🔥"
+            f"Who's ready to turn this frozen castle back into a badass air fryer? 🏰➡️🔥"
         )
         self.send_message_sync(message)
 
