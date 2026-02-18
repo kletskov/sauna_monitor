@@ -119,11 +119,12 @@ class TelegramNotifier:
         )
         self.send_message_sync(message, disable_web_page_preview=True)
 
-    def notify_wednesday_reminder(self, off_duration: str):
+    def notify_wednesday_reminder(self, off_duration: str, current_temp: float = None):
         """Wednesday 3:33 PM reminder - time to poll for Thursday session."""
+        temp_str = f" (currently {current_temp}°C)" if current_temp is not None else ""
         message = (
             f"📅 <b>HUMP DAY HEAT CHECK!</b> 🐫🔥\n\n"
-            f"Sauna's been chillin' for {off_duration}...\n\n"
+            f"Sauna's been chillin' for {off_duration}{temp_str}...\n\n"
             f"Time to create the poll and see who's ready for tomorrow's sweat session! 🗳️💦\n\n"
             f"Who's ready to turn this frozen castle back into a furnace? 🏰➡️🔥"
         )

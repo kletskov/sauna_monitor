@@ -13,6 +13,7 @@ from datetime import datetime, timezone
 try:
     from telegram_bot import notifier
     from data_logger import breaker_tracker
+    from temperature_service import monitor
     IMPORTS_OK = True
 except ImportError:
     IMPORTS_OK = False
@@ -74,8 +75,10 @@ class NotificationScheduler:
                 # Only send once per Wednesday
                 if not self.last_wednesday_check or self.last_wednesday_check.date() != now.date():
                     self.last_wednesday_check = now
-                    print(f"Sending Wednesday 3:33 PM reminder (off for {off_duration})")
-                    notifier.notify_wednesday_reminder(off_duration)
+                    # Get current temperature
+                    current_temp = monitor.get_latest_data().get("temperature")
+                    print(f"Sending Wednesday 3:33 PM reminder (off for {off_duration}, temp: {current_temp}°C)")
+                    notifier.notify_wednesday_reminder(off_duration, current_temp)
 
             # Check for weekly rust warnings (every 7 days)
             off_days = off_seconds / 86400
