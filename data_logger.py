@@ -11,6 +11,13 @@ import threading
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
+try:
+    from telegram_bot import notifier
+    TELEGRAM_IMPORTED = True
+except ImportError:
+    TELEGRAM_IMPORTED = False
+    notifier = None
+
 
 class TemperatureLogger:
     """Logs temperature readings with 1-minute granularity."""
@@ -162,6 +169,18 @@ class BreakerStateTracker:
                 })
 
                 print(f"Breaker state changed: {'ON' if self.current_state else 'OFF'} for {self._format_duration(duration)}")
+
+                # Send Telegram notification for state change
+                if TELEGRAM_IMPORTED and notifier:
+                    if new_state:
+                        # Heater turned ON
+                        notifier.notify_heater_on()
+                    else:
+                        # Heater turned OFF
+                        duration_str = self._format_duration(duration)
+                        notifier.notify_heater_off(duration_str)
+                        # Reset ready notification when heater turns off
+                        notifier.reset_ready_notification()
 
                 # Cleanup and save
                 if len(self.history) % 10 == 0:

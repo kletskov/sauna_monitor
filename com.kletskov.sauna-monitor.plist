@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Service Label -->
+    <key>Label</key>
+    <string>com.kletskov.sauna-monitor</string>
+
+    <!-- Program to run -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/pavelkletskov/yolink/temp-monitor/venv/bin/python</string>
+        <string>/Users/pavelkletskov/yolink/temp-monitor/web_server.py</string>
+    </array>
+
+    <!-- Working directory -->
+    <key>WorkingDirectory</key>
+    <string>/Users/pavelkletskov/yolink/temp-monitor</string>
+
+    <!-- Run at load (startup) -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Keep alive - restart if crashes -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Standard output log (disabled - sent to /dev/null) -->
+    <key>StandardOutPath</key>
+    <string>/dev/null</string>
+
+    <!-- Standard error log (disabled - sent to /dev/null) -->
+    <key>StandardErrorPath</key>
+    <string>/dev/null</string>
+
+    <!-- Environment variables (if needed) -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>

@@ -18,7 +18,14 @@ from yolink.device import YoLinkDevice, YoLinkDeviceMode
 from yolink.endpoint import Endpoints
 
 import config
-from data_logger import temp_logger
+from data_logger import temp_logger, breaker_tracker
+
+try:
+    from telegram_bot import notifier
+    TELEGRAM_IMPORTED = True
+except ImportError:
+    TELEGRAM_IMPORTED = False
+    notifier = None
 
 
 class SimpleAuthManager(YoLinkAuthMgr):
@@ -164,6 +171,12 @@ class TemperatureMonitor:
             # Log temperature reading (1-minute granularity handled by logger)
             if temperature is not None:
                 temp_logger.add_reading(temperature, humidity)
+
+                # Check if sauna reached ready temperature (only if heater is ON)
+                if TELEGRAM_IMPORTED and notifier and hasattr(config, 'TELEGRAM_READY_TEMP'):
+                    # Only notify if heater is ON (we're actively heating)
+                    if breaker_tracker.current_state and temperature >= config.TELEGRAM_READY_TEMP:
+                        notifier.notify_sauna_ready(temperature)
 
             temp_unit = "°F" if config.DISPLAY_FAHRENHEIT else "°C"
             print(

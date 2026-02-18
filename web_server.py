@@ -17,6 +17,7 @@ import config
 from temperature_service import monitor, start_monitoring
 from tuya_service import breaker_monitor
 from data_logger import temp_logger, breaker_tracker
+from notification_scheduler import scheduler
 
 # Set up Flask with static folder
 app = Flask(__name__, static_folder='static', static_url_path='/static')
@@ -79,15 +80,16 @@ HTML_TEMPLATE = """
             text-align: center;
             color: white;
             text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            margin-top: -60px;
         }
         .temperature {
-            font-size: 180px;
+            font-size: 140px;
             font-weight: bold;
             line-height: 1;
             margin: 0;
         }
         .unit {
-            font-size: 80px;
+            font-size: 62px;
         }
         .humidity {
             font-size: 60px;
@@ -168,10 +170,10 @@ HTML_TEMPLATE = """
                 line-height: 1.3;
             }
             .temperature {
-                font-size: 120px;
+                font-size: 95px;
             }
             .unit {
-                font-size: 60px;
+                font-size: 48px;
             }
             .humidity {
                 font-size: 40px;
@@ -546,6 +548,9 @@ def main():
     # Start Tuya breaker monitoring if enabled
     if config.TUYA_ENABLED:
         breaker_monitor.start_monitoring()
+
+    # Start notification scheduler (Wednesday reminders, weekly rust warnings)
+    scheduler.start()
 
     # Give monitors a moment to initialize
     import time

@@ -13,6 +13,8 @@ __pycache__/
 # Logs
 *.log
 temp-monitor.log
+sauna-monitor.log
+sauna-monitor-error.log
 
 # IDE
 .vscode/

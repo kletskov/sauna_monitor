@@ -4,3 +4,4 @@ aiomqtt>=2.0.0,<3.0.0
 pydantic>=2.0.0
 tenacity>=8.1.0
 tinytuya>=1.17.0
+python-telegram-bot>=20.0
