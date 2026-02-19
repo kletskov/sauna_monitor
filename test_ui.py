@@ -8,7 +8,7 @@ import requests
 
 print("Starting test server...")
 proc = subprocess.Popen(
-    ["./venv/bin/python", "web_server.py"],
+    ["./venv/bin/python", "sauna_monitor.api.web.py"],
     stdout=subprocess.PIPE,
     stderr=subprocess.PIPE
 )

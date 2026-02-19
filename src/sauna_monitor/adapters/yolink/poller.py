@@ -18,10 +18,10 @@ from yolink.device import YoLinkDevice, YoLinkDeviceMode
 from yolink.endpoint import Endpoints
 
 import config
-from data_logger import temp_logger, breaker_tracker
+from sauna_monitor.infra.storage.json import temp_logger, breaker_tracker
 
 try:
-    from telegram_bot import notifier
+    from sauna_monitor.adapters.telegram.notifier import notifier
     TELEGRAM_IMPORTED = True
 except ImportError:
     TELEGRAM_IMPORTED = False

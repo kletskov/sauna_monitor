@@ -12,7 +12,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 try:
-    from telegram_bot import notifier
+    from sauna_monitor.adapters.telegram.notifier import notifier
     TELEGRAM_IMPORTED = True
 except ImportError:
     TELEGRAM_IMPORTED = False

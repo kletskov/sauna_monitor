@@ -14,10 +14,10 @@ from flask import Flask, jsonify, render_template_string
 import os
 
 import config
-from temperature_service import monitor, start_monitoring
-from tuya_service import breaker_monitor
-from data_logger import temp_logger, breaker_tracker
-from notification_scheduler import scheduler
+from sauna_monitor.adapters.yolink.poller import monitor, start_monitoring
+from sauna_monitor.adapters.tuya.poller import breaker_monitor
+from sauna_monitor.infra.storage.json import temp_logger, breaker_tracker
+from sauna_monitor.infra.scheduler import scheduler
 
 # Set up Flask with static folder
 app = Flask(__name__, static_folder='static', static_url_path='/static')

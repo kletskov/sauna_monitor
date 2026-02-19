@@ -11,9 +11,9 @@ import time
 from datetime import datetime, timezone
 
 try:
-    from telegram_bot import notifier
-    from data_logger import breaker_tracker
-    from temperature_service import monitor
+    from sauna_monitor.adapters.telegram.notifier import notifier
+    from sauna_monitor.infra.storage.json import breaker_tracker
+    from sauna_monitor.adapters.yolink.poller import monitor
     IMPORTS_OK = True
 except ImportError:
     IMPORTS_OK = False

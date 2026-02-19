@@ -15,7 +15,7 @@ except ImportError:
     TUYA_AVAILABLE = False
 
 import config
-from data_logger import breaker_tracker
+from sauna_monitor.infra.storage.json import breaker_tracker
 
 
 class TuyaBreakerMonitor:

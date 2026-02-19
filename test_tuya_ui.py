@@ -15,7 +15,7 @@ config.TUYA_ENABLED = True
 config.TUYA_DEVICE_NAME = "Sauna Breaker (TEST)"
 
 # Import after config override
-from tuya_service import breaker_monitor
+from sauna_monitor.adapters.tuya.poller import breaker_monitor
 
 # Set fake data
 breaker_monitor.latest_data = {
