@@ -89,7 +89,7 @@ class TemperatureMonitor:
         try:
             print("Initializing YoLink Temperature Monitor...")
             self.session = aiohttp.ClientSession()
-            auth_mgr = SimpleAuthManager(self.session, config.YOLINK_UAID, config.YOLINK_SECRET_KEY)
+            auth_mgr = SimpleAuthManager(self.session, settings.yolink_uaid, settings.yolink_secret_key)
             self.client = YoLinkClient(auth_mgr)
 
             # Authenticate
@@ -175,7 +175,7 @@ class TemperatureMonitor:
                 # Check if sauna reached ready temperature (only if heater is ON)
                 if TELEGRAM_IMPORTED and notifier and hasattr(config, 'TELEGRAM_READY_TEMP'):
                     # Only notify if heater is ON (we're actively heating)
-                    if breaker_tracker.current_state and temperature >= config.TELEGRAM_READY_TEMP:
+                    if breaker_tracker.current_state and temperature >= settings.telegram_ready_temp_c:
                         notifier.notify_sauna_ready(temperature)
 
             temp_unit = "°F" if config.DISPLAY_FAHRENHEIT else "°C"

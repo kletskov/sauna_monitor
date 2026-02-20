@@ -42,3 +42,6 @@ breaker_history.json
 # Flask
 instance/
 .pytest_cache/
+
+.env
+.venv/
