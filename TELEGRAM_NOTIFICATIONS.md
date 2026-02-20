@@ -102,10 +102,10 @@ HEAT. IT. UP. NOW! 🆘
 
 ## Configuration
 
-Current settings in [config.py](config.py):
+Configure in your `config.py` (copy from [config.example.py](config.example.py)):
 - `TELEGRAM_ENABLED = True`
-- `TELEGRAM_BOT_TOKEN = "8145440063:AAFo2TwWcc5RuNsxN8aIQsILIw2PyF_xNnA"`
-- `TELEGRAM_CHAT_ID = "-600574345"` (Cinco de baños)
+- `TELEGRAM_BOT_TOKEN = "your_bot_token_from_botfather"`
+- `TELEGRAM_CHAT_ID = "your_group_chat_id"`
 - `TELEGRAM_READY_TEMP = 90` (°C)
 
 ## Testing
