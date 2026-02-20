@@ -103,19 +103,16 @@ class TelegramNotifier:
 
     def notify_sauna_ready(self, temperature: float):
         """Notify that sauna reached target temperature (90°C)."""
-        # Prevent spamming - only send once per heating session
-        now = datetime.now()
-        if self.last_ready_notification:
-            time_since_last = (now - self.last_ready_notification).total_seconds()
-            if time_since_last < 1800:  # Don't send again within 30 minutes
-                return
+        # Only send once per heating session - reset when heater turns off
+        if self.last_ready_notification is not None:
+            # Already sent during this session, don't send again
+            return
 
-        self.last_ready_notification = now
+        self.last_ready_notification = datetime.now()
         message = (
             f"🌡️ <b>TIME TO GET BUTT NAKED!</b> 🍑\n\n"
-            f"Sauna hit {temperature}°C - perfect sweat territory! 💦\n\n"
-            f"Strip down and GO GO GO! 🏃‍♂️💨\n\n"
-            f"📊 Live stats: http://hockey-blast.com:5002/"
+            f"Sauna hit {temperature}°C ! 🔥\n\n"
+            f"📊 Stats: http://hockey-blast.com:5002/"
         )
         self.send_message_sync(message, disable_web_page_preview=True)
 
