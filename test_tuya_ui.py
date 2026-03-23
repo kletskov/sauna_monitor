@@ -29,4 +29,4 @@ breaker_monitor.latest_data = {
 print("Tuya test data configured!")
 print("Breaker status:", "ON" if breaker_monitor.latest_data["breaker_on"] else "OFF")
 print("\nYou should now see the breaker status in top-left corner at:")
-print("http://hockey-blast.com/")
+print("http://hockey-blast.com:9000/")
