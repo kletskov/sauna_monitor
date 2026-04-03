@@ -89,8 +89,13 @@ class TemperatureLogger:
             if len(self.data) % 100 == 0:
                 self.cleanup_old_data()
 
-    def get_recent_data(self, hours: int = 24):
-        """Get temperature data for the last N hours."""
+    def get_recent_data(self, hours: Optional[int] = None):
+        """Get temperature data for the last N hours (or all data if hours=None)."""
+        if hours is None:
+            # Return all data
+            with self.lock:
+                return self.data.copy()
+
         cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
         cutoff_str = cutoff.isoformat()
 
@@ -102,8 +107,8 @@ class TemperatureLogger:
         with self.lock:
             return self.data.copy()
 
-    def get_history(self, hours: int = 24):
-        """Alias for get_recent_data for API consistency."""
+    def get_history(self, hours: Optional[int] = None):
+        """Alias for get_recent_data for API consistency. Returns all data by default."""
         return self.get_recent_data(hours)
 
 
