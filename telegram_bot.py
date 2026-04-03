@@ -112,7 +112,7 @@ class TelegramNotifier:
         message = (
             f"🌡️ <b>TIME TO GET BUTT NAKED!</b> 🍑\n\n"
             f"Sauna hit {temperature}°C ! 🔥\n\n"
-            f"📊 Stats: http://hockey-blast.com:9000/"
+            f"📊 Stats: https://sauna.hockey-blast.com/"
         )
         self.send_message_sync(message, disable_web_page_preview=True)
 
