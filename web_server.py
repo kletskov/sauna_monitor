@@ -44,7 +44,7 @@ HTML_TEMPLATE = """
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
-            background-image: url('/static/cinco_background.png');
+            background-image: url('/static/cinco_background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

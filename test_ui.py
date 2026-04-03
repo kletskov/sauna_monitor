@@ -25,14 +25,14 @@ try:
     else:
         print("✗ Background image NOT found in HTML")
 
-    if "cinco_background.png" in response.text:
+    if "cinco_background.jpg" in response.text:
         print("✓ Background image filename is correct")
     else:
         print("✗ Background image filename NOT found")
 
     # Test static file
     print("\nTesting static image...")
-    img_response = requests.get("http://localhost:5002/static/cinco_background.png")
+    img_response = requests.get("http://localhost:5002/static/cinco_background.jpg")
     if img_response.status_code == 200:
         print(f"✓ Image loaded successfully ({len(img_response.content)} bytes)")
     else:
