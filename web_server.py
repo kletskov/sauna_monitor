@@ -64,52 +64,57 @@ HTML_TEMPLATE = """
         }
         .heading {
             position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: left center;
             z-index: 3;
-            font-size: 90px;
+            font-size: 50px;
+            font-size: clamp(35px, 4vh, 60px);
             font-weight: bold;
             color: #FFD700;
             text-align: center;
             text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            white-space: nowrap;
         }
         .content {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
             text-align: center;
             color: white;
             text-shadow: 0 4px 12px rgba(0,0,0,0.8);
-            margin-top: -60px;
+            margin-top: -40px;
         }
         .temperature {
-            font-size: 140px;
+            font-size: clamp(60px, 10vw, 120px);
             font-weight: bold;
             line-height: 1;
             margin: 0;
         }
         .unit {
-            font-size: 62px;
+            font-size: clamp(30px, 4.5vw, 52px);
         }
         .humidity {
-            font-size: 60px;
-            margin-top: 30px;
+            font-size: clamp(28px, 4vw, 50px);
+            margin-top: 20px;
             opacity: 0.9;
         }
         .breaker-status {
             position: absolute;
-            top: 280px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 30px;
+            right: 30px;
             z-index: 3;
             background: rgba(0,0,0,0.6);
-            padding: 20px 40px;
-            border-radius: 30px;
-            font-size: 36px;
+            padding: clamp(10px, 2vw, 20px) clamp(15px, 3vw, 30px);
+            border-radius: 20px;
+            font-size: clamp(18px, 2.5vw, 28px);
             backdrop-filter: blur(10px);
             font-weight: bold;
             text-align: center;
-            line-height: 1.3;
+            line-height: 1.4;
         }
         .breaker-status.on {
             color: #22c55e;
@@ -121,15 +126,15 @@ HTML_TEMPLATE = """
         }
         .chart-container {
             position: absolute;
-            bottom: 80px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
-            max-width: 1000px;
-            height: 250px;
+            width: 85%;
+            max-width: 1100px;
+            height: 220px;
             z-index: 3;
             background: rgba(0,0,0,0.7);
-            padding: 20px;
+            padding: 15px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
         }
@@ -158,31 +163,52 @@ HTML_TEMPLATE = """
         .reset-zoom:hover {
             background: rgba(255,215,0,0.3);
         }
-        @media (max-width: 768px) {
+        @media (min-width: 1200px) {
             .heading {
-                top: 20px;
-                font-size: 50px;
-            }
-            .breaker-status {
-                top: 180px;
-                font-size: 24px;
-                padding: 15px 25px;
-                line-height: 1.3;
+                font-size: clamp(40px, 3.5vh, 55px);
+                left: 40px;
             }
             .temperature {
-                font-size: 95px;
+                font-size: clamp(80px, 8vw, 110px);
             }
             .unit {
-                font-size: 48px;
+                font-size: clamp(36px, 3.5vw, 48px);
             }
             .humidity {
-                font-size: 40px;
+                font-size: clamp(32px, 3vw, 45px);
+            }
+        }
+        @media (max-width: 768px) {
+            .heading {
+                top: 50%;
+                left: 10px;
+                font-size: clamp(30px, 8vw, 50px);
+            }
+            .breaker-status {
+                top: 15px;
+                right: 15px;
+                font-size: clamp(14px, 3.5vw, 22px);
+                padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 18px);
+                line-height: 1.3;
+            }
+            .content {
+                margin-top: -20px;
+            }
+            .temperature {
+                font-size: clamp(50px, 12vw, 90px);
+            }
+            .unit {
+                font-size: clamp(24px, 6vw, 42px);
+            }
+            .humidity {
+                font-size: clamp(22px, 5vw, 36px);
+                margin-top: 15px;
             }
             .chart-container {
                 width: 95%;
-                height: 235px;
-                bottom: 60px;
-                padding: 15px;
+                height: clamp(180px, 25vh, 220px);
+                bottom: 20px;
+                padding: 12px;
             }
             .chart-hint {
                 font-size: 9px;
