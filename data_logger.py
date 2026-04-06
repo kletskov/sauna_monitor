@@ -176,15 +176,22 @@ class BreakerStateTracker:
                 print(f"Breaker state changed: {'ON' if self.current_state else 'OFF'} for {self._format_duration(duration)}")
 
                 # Send Telegram notification for state change
+                # Minimum session duration before sending ON/OFF notifications.
+                # Set to 2 hours so quick test runs (playing with kid etc) stay silent.
+                MIN_NOTIFY_SECONDS = 2 * 3600  # 2 hours
                 if TELEGRAM_IMPORTED and notifier:
                     if new_state:
-                        # Heater turned ON
+                        # Heater turned ON — always notify immediately
                         notifier.notify_heater_on()
                     else:
-                        # Heater turned OFF
-                        duration_str = self._format_duration(duration)
-                        notifier.notify_heater_off(duration_str)
-                        # Reset ready notification when heater turns off
+                        # Heater turned OFF — only notify if session lasted >= 2 hours
+                        if duration >= MIN_NOTIFY_SECONDS:
+                            duration_str = self._format_duration(duration)
+                            notifier.notify_heater_off(duration_str)
+                        else:
+                            print(f'Session too short ({self._format_duration(duration)}) '
+                                  f'— skipping turned-off notification')
+                        # Always reset ready notification when heater turns off
                         notifier.reset_ready_notification()
 
                 # Cleanup and save
