@@ -121,6 +121,7 @@ class BreakerStateTracker:
         self.state_since = None  # When did current state start
         self.history = []  # List of {"state": bool, "timestamp": "ISO8601", "duration_seconds": int}
         self.lock = threading.RLock()  # Use RLock to allow reentrant locking
+        self.startup_time = datetime.now(timezone.utc)  # Track service start time
         self.load_from_disk()
 
     def load_from_disk(self):
@@ -175,12 +176,20 @@ class BreakerStateTracker:
 
                 print(f"Breaker state changed: {'ON' if self.current_state else 'OFF'} for {self._format_duration(duration)}")
 
+                # Guard: if state_since predates our startup, the duration is unreliable
+                # (service restarted mid-session). Treat as a fresh start — skip notification.
+                state_since_dt = datetime.fromisoformat(self.state_since)
+                restarted_mid_session = state_since_dt < self.startup_time
+
                 # Send Telegram notification for state change
                 # Minimum session duration before sending ON/OFF notifications.
                 # Set to 2 hours so quick test runs (playing with kid etc) stay silent.
                 MIN_NOTIFY_SECONDS = 2 * 3600  # 2 hours
                 if TELEGRAM_IMPORTED and notifier:
-                    if new_state:
+                    if restarted_mid_session:
+                        print(f"State change detected at startup (restarted mid-session) — skipping notification")
+                        notifier.reset_ready_notification()
+                    elif new_state:
                         # Heater turned ON — always notify immediately
                         notifier.notify_heater_on()
                     else:
