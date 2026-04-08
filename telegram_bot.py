@@ -215,6 +215,46 @@ async def _status_command(update, context):
         await update.message.reply_text(f"⚠️ Error fetching status: {e}")
 
 
+
+async def _history_command(update, context):
+    """Reply to /history with all sauna ON sessions and their durations."""
+    try:
+        import json
+        from datetime import datetime
+
+        with open('/Users/pavelkletskov/yolink/temp-monitor/breaker_history.json', 'r') as fh:
+            data = json.load(fh)
+
+        history = data.get('history', [])
+        sessions = []
+
+        for entry in history:
+            if entry.get('state') is not True:
+                continue
+            duration_s = entry.get('duration_seconds', 0)
+            if duration_s < 120:
+                continue  # skip blips under 2 min
+            ts = datetime.fromisoformat(entry['timestamp'])
+            ts_local = ts.astimezone()
+            date_str = ts_local.strftime('%b %d')
+            time_str = ts_local.strftime('%I:%M %p').lstrip('0')
+            h = int(duration_s // 3600)
+            m = int((duration_s % 3600) // 60)
+            dur_str = (f'{h}h {m}m' if h > 0 else f'{m}m')
+            sessions.append(f'🔥 {date_str} {time_str} — {dur_str}')
+
+        if not sessions:
+            await update.message.reply_text('No sauna sessions recorded yet.')
+            return
+
+        sessions = sessions[::-1][:15]
+        body = chr(10).join(sessions)
+        msg = f'<b>Sauna History</b> (last {len(sessions)} sessions)' + chr(10) + chr(10) + body
+        await update.message.reply_text(msg, parse_mode='HTML')
+
+    except Exception as e:
+        await update.message.reply_text(f'Error fetching history: {e}')
+
 def start_command_polling():
     """Start the Telegram bot polling loop in a background thread (non-blocking)."""
     if not COMMANDS_AVAILABLE:
