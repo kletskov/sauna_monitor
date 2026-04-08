@@ -18,6 +18,7 @@ from temperature_service import monitor, start_monitoring
 from tuya_service import breaker_monitor
 from data_logger import temp_logger, breaker_tracker
 from notification_scheduler import scheduler
+from telegram_bot import start_command_polling
 
 # Set up Flask with static folder
 app = Flask(__name__, static_folder='static', static_url_path='/static')
@@ -577,6 +578,9 @@ def main():
 
     # Start notification scheduler (Wednesday reminders, weekly rust warnings)
     scheduler.start()
+
+    # Start Telegram command handler (/status)
+    start_command_polling()
 
     # Give monitors a moment to initialize
     import time

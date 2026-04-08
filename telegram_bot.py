@@ -169,3 +169,79 @@ class TelegramNotifier:
 
 # Global notifier instance
 notifier = TelegramNotifier()
+
+
+# ---------------------------------------------------------------------------
+# /status command handler
+# ---------------------------------------------------------------------------
+
+try:
+    from telegram.ext import Application, CommandHandler as TGCommandHandler
+    COMMANDS_AVAILABLE = True
+except ImportError:
+    COMMANDS_AVAILABLE = False
+
+
+async def _status_command(update, context):
+    """Reply to /status with current sauna temperature and heater state."""
+    try:
+        # Import here to avoid circular imports
+        from tuya_service import breaker_monitor
+        from temperature_service import monitor
+
+        temp = monitor.latest_data.get("temperature")
+        data = breaker_monitor.latest_data
+        breaker_on = data.get("breaker_on")
+        duration = data.get("duration", "?")
+
+        if temp is None:
+            temp_str = "unknown"
+        else:
+            temp_str = f"{temp:.1f}°C"
+
+        if breaker_on:
+            state_line = f"🔥 Heater: ON (for {duration})"
+        else:
+            state_line = f"❄️ Heater: OFF (for {duration})"
+
+        msg = (
+            f"🌡️ <b>Sauna Status</b>\n"
+            f"Temp: {temp_str}\n"
+            f"{state_line}\n"
+            f"\n📊 <a href='https://sauna.hockey-blast.com/'>Live dashboard</a>"
+        )
+        await update.message.reply_text(msg, parse_mode="HTML", disable_web_page_preview=True)
+    except Exception as e:
+        await update.message.reply_text(f"⚠️ Error fetching status: {e}")
+
+
+def start_command_polling():
+    """Start the Telegram bot polling loop in a background thread (non-blocking)."""
+    if not COMMANDS_AVAILABLE:
+        logger.warning("telegram.ext not available — /status command disabled")
+        return
+    if not config.TELEGRAM_ENABLED or not config.TELEGRAM_BOT_TOKEN:
+        return
+
+    import threading
+
+    def _run():
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        async def _main():
+            app = Application.builder().token(config.TELEGRAM_BOT_TOKEN).build()
+            app.add_handler(TGCommandHandler("status", _status_command))
+            await app.initialize()
+            await app.start()
+            await app.updater.start_polling(drop_pending_updates=True)
+            logger.info("Telegram /status command handler started (polling)")
+            # Run forever
+            await asyncio.Event().wait()
+
+        loop.run_until_complete(_main())
+
+    t = threading.Thread(target=_run, daemon=True, name="telegram-polling")
+    t.start()
+    logger.info("Telegram command polling thread launched")
