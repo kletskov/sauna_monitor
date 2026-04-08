@@ -237,6 +237,7 @@ def start_command_polling():
             await app.start()
             await app.updater.start_polling(drop_pending_updates=True)
             logger.info("Telegram /status command handler started (polling)")
+            print("Telegram polling started OK", flush=True)
             # Run forever
             await asyncio.Event().wait()
 
@@ -245,3 +246,4 @@ def start_command_polling():
     t = threading.Thread(target=_run, daemon=True, name="telegram-polling")
     t.start()
     logger.info("Telegram command polling thread launched")
+    print("Telegram polling thread launched", flush=True)
