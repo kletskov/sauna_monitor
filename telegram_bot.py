@@ -273,6 +273,7 @@ def start_command_polling():
         async def _main():
             app = Application.builder().token(config.TELEGRAM_BOT_TOKEN).build()
             app.add_handler(TGCommandHandler("status", _status_command))
+            app.add_handler(TGCommandHandler("history", _history_command))
             await app.initialize()
             await app.start()
             await app.updater.start_polling(drop_pending_updates=True)
