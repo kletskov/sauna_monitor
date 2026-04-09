@@ -249,7 +249,10 @@ async def _history_command(update, context):
 
         sessions = sessions[::-1][:15]
         body = chr(10).join(sessions)
-        msg = f'<b>Sauna History</b> (last {len(sessions)} sessions)' + chr(10) + chr(10) + body
+        total = len(data['history'])
+        on_count = sum(1 for e in data['history'] if e.get('state') is True and e.get('duration_seconds',0) >= 120)
+        label = f'all {on_count}' if on_count <= 15 else f'last 15 of {on_count}'
+        msg = f'<b>Sauna History</b> ({label} sessions)' + chr(10) + chr(10) + body
         await update.message.reply_text(msg, parse_mode='HTML')
 
     except Exception as e:
